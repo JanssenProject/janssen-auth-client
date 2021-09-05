@@ -78,12 +78,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           case "$GITHUB_REPOSITORY" in
-            "JanssenProject/jans-auth-server" |
-            "JanssenProject/jans-client-api" |
-            "JanssenProject/jans-scim" |
-            "JanssenProject/jans-eleven" |
-            "JanssenProject/jans-config-api"
-            ) 
+            "JanssenProject/jans-auth-server" | "JanssenProject/jans-client-api" | "JanssenProject/jans-scim" | "JanssenProject/jans-eleven" | "JanssenProject/jans-config-api") 
               echo "Run Sonar analysis without test execution"
               mvn -B -DskipTests=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
             ;;
