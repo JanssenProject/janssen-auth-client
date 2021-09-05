@@ -78,28 +78,18 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           case "$GITHUB_REPOSITORY" in
-            "JanssenProject/jans-auth-server") 
-              echo "Run Sonar analysis for jans-auth-server "
-              mvn -B -pl \!client,\!static,\!server org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            ;;
-            "JanssenProject/jans-client-api") 
-              echo "Run Sonar analysis for jans-client-api"
+            "JanssenProject/jans-auth-server" |
+            "JanssenProject/jans-client-api" |
+            "JanssenProject/jans-scim" |
+            "JanssenProject/jans-eleven" |
+            "JanssenProject/jans-config-api"
+            ) 
+              echo "Run Sonar analysis without test execution"
               mvn -B -DskipTests=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
             ;;
-            "JanssenProject/jans-scim") 
-              echo "Run Sonar analysis for jans-scim"
-              mvn -B -pl \!client verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            ;;
-            "JanssenProject/jans-eleven")
-              echo "Run Sonar analysis for jans-scim"
-              mvn -B -pl \!client,\!server verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            ;;
-            "JanssenProject/jans-config-api")
-              echo "Run Sonar analysis for jans-config-api"
-              mvn -B -DskipTests=true verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
-            ;;
+
             *) 
-            echo "Run maven build for Java repository"
+            echo "Run Sonar analysis with test execution"
             mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar
             ;;
           esac
